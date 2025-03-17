@@ -7,6 +7,7 @@ let produtos = [
     { nome: "Refrigerante", preco: 3.00, imagem: "assets/refri.jpg" }
 ];
 
+let carrinho = [];
 let total = 0;
 
 function exibirProdutos() {
@@ -27,18 +28,52 @@ function exibirProdutos() {
 function adicionarAoCarrinho(index) {
     let quantidade = parseInt(prompt(`Quantos ${produtos[index].nome} deseja?`));
     if (!isNaN(quantidade) && quantidade > 0) {
-        total += produtos[index].preco * quantidade;
-        document.getElementById("total").innerText = total.toFixed(2);
+        let itemExistente = carrinho.find(item => item.nome === produtos[index].nome);
+        if (itemExistente) {
+            itemExistente.quantidade += quantidade;
+        } else {
+            carrinho.push({
+                nome: produtos[index].nome,
+                preco: produtos[index].preco,
+                quantidade: quantidade
+            });
+        }
+        calcularTotal();
     } else {
         alert("Quantidade inválida!");
     }
 }
 
+function calcularTotal() {
+    total = carrinho.reduce((acc, item) => acc + (item.preco * item.quantidade), 0);
+    document.getElementById("total").innerText = total.toFixed(2);
+}
+
 function finalizarPedido() {
-    alert(`Pedido finalizado! Total a pagar: R$ ${total.toFixed(2)}`);
+    if (carrinho.length === 0) {
+        alert("Seu carrinho está vazio!");
+        return;
+    }
+    
+    let taxa = confirm("Deseja adicionar uma taxa de 10% ao valor final?") ? 0.10 : 0;
+    let totalComTaxa = total + (total * taxa);
+    
+    let recibo = "--- Recibo da PastelMel ---\n";
+    carrinho.forEach(item => {
+        recibo += `${item.quantidade}x ${item.nome} - R$ ${(item.preco * item.quantidade).toFixed(2)}\n`;
+    });
+    recibo += `------------------------------\nTotal: R$ ${total.toFixed(2)}\n`;
+    if (taxa > 0) {
+        recibo += `Taxa (10%): R$ ${(total * 0.10).toFixed(2)}\n`;
+    }
+    recibo += `Total Final: R$ ${totalComTaxa.toFixed(2)}\n`;
+    alert(recibo);
+    
+    novoPedido();
 }
 
 function novoPedido() {
+    carrinho = [];
     total = 0;
     document.getElementById("total").innerText = total.toFixed(2);
 }
