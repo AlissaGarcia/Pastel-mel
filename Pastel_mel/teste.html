@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bem-Vindo | PastelMel </title>
+</head>
+<body>
+
+    <script>
+
+        alert ("Bem vindo à pastelaria")
+
+    let produtos  = ["Pastel de Carne", "Pastel de Frango", "Pastel de Queijo", "Coxinha", "Empada de Frango", "Refrigerante"]
+    let precos = ["6,00", "5,50", "5,00", "3,50", "4,00", "3,00"]
+
+    function exibir_menu() {
+        
+        alert("Produtos disponíveis são: ")
+        for (let i = 0; i < produtos.length; i++) {
+           
+           document.write(`<h1>${i+1}. ${produtos[i]} - R$ ${precos[i]}`)
+            
+        }
+
+    }
+
+    function registrar_pedido() {
+        let pedido =[]
+        let continuar = true;
+
+        while (continuar) {
+
+            exibir_menu();
+
+            let produtoindex = prompt("Escolha o número do produto desejado") -1; 
+
+            if(produtoindex < 0 || produtoindex >= produtos.length){
+                alert("Inválido")
+                continue;
+            }
+
+            let quantidade = prompt("quntos quer")
+            quantidade = parseInt(quantidade)
+        
+            if(isNaN(quantidade) || quantidade <= 0 ){
+                alert("Quantidade Inválida");
+               
+                continue; 
+            }
+
+            pedido.push({produto: produtos[produtoindex], quantidade: quantidade, precoUnitario: preco[produtoindex]})
+
+            continuar = prompt("Deseja adicionar mais produtos? (s/n)") ==='s';
+
+
+            
+        }
+
+       return pedido;
+           
+    }
+
+    function calcular_pedido(pedido){
+
+        let total = 0; 
+
+        for(let item of pedido) {
+
+            total += item.quantidade * item.precoUnitario;
+        }
+
+        return total
+
+
+
+
+    }
+
+    function aplicarTaxa(total){
+
+        let taxa = prompt
+
+        if (taxa){
+            total *= 1.10;
+        }
+
+        return total;
+
+    }
+
+    function exibirconta( pedido, total){
+
+        console.log(" dsuam conta")
+
+        for (let item of pedido){
+            console.log(`${item.quantidade} x ${item.produto} R$ ${item.quantidade}`)
+
+        }
+
+        console.log ("tota")
+
+    }
+
+    function sistema() {
+        let pedido = registrar_pedido
+
+        
+    }
+
+ exibir_menu()
+ 
+
+
+
+    </script>
+    
+    
+</body>
+</html>
