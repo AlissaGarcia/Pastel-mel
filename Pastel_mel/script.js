@@ -64,7 +64,7 @@ function finalizarPedido() {
     });
     recibo += `------------------------------\nTotal: R$ ${total.toFixed(2)}\n`;
     if (taxa > 0) {
-        recibo += `Taxa (10%): R$ ${(total * 0.10).toFixed(2)}\n`;
+        recibo += `Taxa Garçom Atendimento (10%): R$ ${(total * 0.10).toFixed(2)}\n`;
     }
     recibo += `Total Final: R$ ${totalComTaxa.toFixed(2)}\n`;
     alert(recibo);
